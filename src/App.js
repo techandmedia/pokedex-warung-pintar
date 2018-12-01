@@ -3,6 +3,8 @@ import axios from "axios";
 import CardList from "./components/CardList";
 import SearchBox from "./components/SearchBox";
 import Scroll from "./components/Scroll";
+import Modal from "./components/Modal";
+import PokemonProfile from "./components/PokemonProfile";
 import "./App.css";
 
 class App extends Component {
@@ -12,11 +14,12 @@ class App extends Component {
       pokemons: [],
       searchField: "",
       prodURL: "https://app.subarnanto.com/api/v2/pokemon/",
-      devURL: "http://localhost:5001/api/v2/pokemon/"
+      devURL: "http://localhost:5001/api/v2/pokemon/",
+      isModalOpen: false
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const URL =
       process.env.NODE_ENV === "production"
         ? this.state.prodURL
@@ -28,12 +31,25 @@ class App extends Component {
   }
 
   onSearchChange = event => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     this.setState({ searchField: event.target.value });
   };
 
+  handleClick() {
+    this.setState(state => ({
+      clicks: state.clicks + 1
+    }));
+  }
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      isModalOpen: !prevState.isModalOpen
+    }));
+  };
+
   render() {
-    const { pokemons, searchField } = this.state;
+    const { pokemons, searchField, isModalOpen } = this.state;
     const filteredPokemon = pokemons.filter(pokemon => {
       return pokemon.name.toLowerCase().includes(searchField.toLowerCase());
     });
@@ -41,13 +57,21 @@ class App extends Component {
       <h1>Loading</h1>
     ) : (
       <div>
+        {isModalOpen && (
+          <Modal>
+            <PokemonProfile
+              // isModalOpen={isModalOpen}
+              toggleModal={this.toggleModal}
+            />
+          </Modal>
+        )}
         <h1>Pokemon</h1>
         <SearchBox
           searchChange={this.onSearchChange}
           searchField={searchField}
         />
         <Scroll>
-          <CardList pokemons={filteredPokemon} />
+          <CardList pokemons={filteredPokemon} toggleModal={this.toggleModal} />
         </Scroll>
       </div>
     );

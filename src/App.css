@@ -46,10 +46,16 @@ input{
   overflow: scroll;
   border: 5px solid grey;
   height: 800px;
-  padding: 20px;
+  padding-left: 50px;
+  padding-top: 20px;
 }
 
 .search-box {
+  /* width: 100px; */
   text-align: center;
   margin: 10px 0; 
+}
+
+.search-box > input {
+  width: 200px;
 }

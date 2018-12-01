@@ -1,0 +1,29 @@
+#modal {
+  position: height;
+  z-index: 999;
+}
+
+.profile-modal {
+  background-color: rgba(13, 128, 99, 0.9);
+  position: fixed;
+  /* text-align: center; */
+  height: 50%;
+  width: 50%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.button {
+  cursor: pointer;
+  width: 100px;
+  height: 50px;
+  padding: 5px;
+}
+
+.profile-modal > p, .profile-modal > button {
+  text-align: center;
+}

@@ -5,7 +5,7 @@ const SearchBox = ({ searchField, searchChange }) => {
     <div className="search-box">
       <input
         type="search"
-        placeholder="Search Pokemon"
+        placeholder="Search by Pokemon Name"
         onChange={searchChange}
         // Warning: React does not recognize the `searchField` prop on a DOM element. 
         // If you intentionally want it to appear in the DOM as a custom attribute, 

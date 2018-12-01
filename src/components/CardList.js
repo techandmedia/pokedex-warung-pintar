@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-const CardList = ({ pokemons }) => {
+const CardList = ({ pokemons, toggleModal }) => {
   return (
     <div className="card-list">
       {
@@ -10,6 +10,7 @@ const CardList = ({ pokemons }) => {
           // console.log(pokemon.name,i)
           return (
             <Card
+              toggleModal={toggleModal}
               key={i}
               id={id}
               name={pokemon.name}
