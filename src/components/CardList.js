@@ -6,11 +6,13 @@ const CardList = ({ pokemons }) => {
     <div>
       {
         pokemons.map((pokemon, i) => {
+          let id = i + 1
+          // console.log(pokemon.name,i)
           return (
             <Card
               key={i}
-              id={pokemon[i].id}
-              name={pokemon[i].name}
+              id={id}
+              name={pokemon.name}
               />
           );
         })
