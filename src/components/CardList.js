@@ -3,7 +3,7 @@ import Card from './Card';
 
 const CardList = ({ pokemons }) => {
   return (
-    <div>
+    <div className="card-list">
       {
         pokemons.map((pokemon, i) => {
           let id = i + 1

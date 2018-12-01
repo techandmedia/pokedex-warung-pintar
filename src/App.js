@@ -10,7 +10,6 @@ class App extends Component {
     super();
     this.state = {
       pokemons: [],
-      searchInput: "",
       searchField: "",
       prodURL: "https://app.subarnanto.com/api/v2/pokemon/",
       devURL: "http://localhost:5001/api/v2/pokemon/"
