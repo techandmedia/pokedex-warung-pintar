@@ -45,7 +45,7 @@ export default class Profile extends React.Component {
     const {
       pokemonName,
       pokemonType1,
-      pokemonType2,
+      // pokemonType2,
       pokemonWeight,
       hp,
       defense,

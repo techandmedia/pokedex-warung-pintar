@@ -18,7 +18,10 @@ class App extends Component {
       devURL: "http://localhost:5001/api/v2/",
       isModalOpen: false,
       pokemonID: null,
-      pokemonType: "fire"
+      pokemonType: "",
+      pokemonTypeURL: "/api/v2/type/1/",
+      selectPokemons: [],
+      route: "all"
     };
   }
 
@@ -27,7 +30,7 @@ class App extends Component {
       process.env.NODE_ENV === "production"
         ? this.state.prodURL
         : this.state.devURL;
-    axios.get(URL+"pokemon").then(response => {
+    axios.get(URL + "pokemon").then(response => {
       // console.log(response.data.results);
       this.setState({ pokemons: response.data.results });
     });
@@ -38,11 +41,11 @@ class App extends Component {
     this.setState({ searchField: event.target.value });
   };
 
-  handleClick() {
-    this.setState(state => ({
-      clicks: state.clicks + 1
-    }));
-  }
+  // handleClick() {
+  //   this.setState(state => ({
+  //     clicks: state.clicks + 1
+  //   }));
+  // }
 
   toggleModal = id => {
     console.log(id);
@@ -53,14 +56,37 @@ class App extends Component {
     }));
   };
 
-  onSelectChange(event) {
-    this.setState({ pokemonType: event.target.value });
-  }
+  onSelectChange = event => {
+    console.log(event);
+    this.setState({
+      pokemonType: event.target.value,
+      pokemonTypeURL: this.state.pokemonType
+    });
+  };
 
-  handleSubmit(event) {
-    alert("Select Pokemon Type: " + this.state.value);
+  handleSubmit = event => {
     event.preventDefault();
-  }
+    const URL =
+      process.env.NODE_ENV === "production"
+        ? `https://app.subarnanto.com${this.state.pokemonTypeURL}`
+        : `http://localhost:5001${this.state.pokemonTypeURL}`;
+    axios.get(URL).then(response => {
+      const pokemons = response.data.pokemon;
+      this.setState({ selectPokemons: pokemons });
+      console.log(this.state.selectPokemons);
+    });
+    // this.setState({ pokemonTypeURL: this.state.pokemonType });
+    // alert("Select Pokemon Type: " + this.state.pokemonTypeURL);
+  };
+
+  onRouteChange = route => {
+    if (route === "selected") {
+      this.setState({ route: "selected" });
+    } else if (route === "all") {
+      this.setState({ route: "all" });
+    }
+    this.setState({ route });
+  };
 
   render() {
     const {
@@ -68,11 +94,18 @@ class App extends Component {
       searchField,
       isModalOpen,
       pokemonID,
-      pokemonType
+      pokemonType,
+      // pokemonTypeURL,
+      selectPokemons,
+      route
     } = this.state;
+
     const filteredPokemon = pokemons.filter(pokemon => {
       return pokemon.name.toLowerCase().includes(searchField.toLowerCase());
     });
+
+    // const selectedPokemon = selectPokemons
+
     const URL =
       process.env.NODE_ENV === "production"
         ? this.state.prodURL
@@ -102,9 +135,21 @@ class App extends Component {
           handleSubmit={this.handleSubmit}
           pokemonType={pokemonType}
           URL={URL}
+          onRouteChange={this.onRouteChange}
+          // pokemonTypeURL={pokemonTypeURL}
         />
         <Scroll>
-          <CardList pokemons={filteredPokemon} toggleModal={this.toggleModal} />
+          {route === "all" ? (
+            <CardList
+              pokemons={filteredPokemon}
+              toggleModal={this.toggleModal}
+            />
+          ) : route === "selected" ? (
+            <CardList
+              pokemons={selectPokemons}
+              toggleModal={this.toggleModal}
+            />
+          ) : null}
         </Scroll>
       </div>
     );

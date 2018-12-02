@@ -63,3 +63,27 @@ input {
 .search-box > input {
   width: 200px;
 }
+
+.select-box{
+  display: inline-flex;
+  margin: 5px 15px;
+  /* flex-direction: row; */
+}
+
+.button {
+  cursor: pointer;
+  border: 2px solid goldenrod;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: aqua;
+  width: 120px;
+  height: 20px;
+  margin: 0px 20px;
+}
+
+.button:hover {
+  background-color: brown;
+  color: white;
+}
+
+
