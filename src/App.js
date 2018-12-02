@@ -5,6 +5,7 @@ import SearchBox from "./components/SearchBox";
 import Scroll from "./components/Scroll";
 import Modal from "./components/Modal";
 import PokemonProfile from "./components/PokemonProfile";
+import SelectBox from "./components/SelectBox";
 import "./App.css";
 
 class App extends Component {
@@ -13,10 +14,11 @@ class App extends Component {
     this.state = {
       pokemons: [],
       searchField: "",
-      prodURL: "https://app.subarnanto.com/api/v2/pokemon/",
-      devURL: "http://localhost:5001/api/v2/pokemon/",
+      prodURL: "https://app.subarnanto.com/api/v2/",
+      devURL: "http://localhost:5001/api/v2/",
       isModalOpen: false,
-      pokemonID: null
+      pokemonID: null,
+      pokemonType: "fire"
     };
   }
 
@@ -25,7 +27,7 @@ class App extends Component {
       process.env.NODE_ENV === "production"
         ? this.state.prodURL
         : this.state.devURL;
-    axios.get(this.state.prodURL).then(response => {
+    axios.get(URL+"pokemon").then(response => {
       // console.log(response.data.results);
       this.setState({ pokemons: response.data.results });
     });
@@ -51,8 +53,23 @@ class App extends Component {
     }));
   };
 
+  onSelectChange(event) {
+    this.setState({ pokemonType: event.target.value });
+  }
+
+  handleSubmit(event) {
+    alert("Select Pokemon Type: " + this.state.value);
+    event.preventDefault();
+  }
+
   render() {
-    const { pokemons, searchField, isModalOpen, pokemonID } = this.state;
+    const {
+      pokemons,
+      searchField,
+      isModalOpen,
+      pokemonID,
+      pokemonType
+    } = this.state;
     const filteredPokemon = pokemons.filter(pokemon => {
       return pokemon.name.toLowerCase().includes(searchField.toLowerCase());
     });
@@ -71,14 +88,20 @@ class App extends Component {
               // isModalOpen={isModalOpen}
               toggleModal={this.toggleModal}
               pokemonID={pokemonID}
-              URL={this.state.prodURL}
+              URL={URL}
             />
           </Modal>
         )}
         <h1>Pokemon</h1>
         <SearchBox
-          searchChange={this.onSearchChange}
+          onSearchChange={this.onSearchChange}
           searchField={searchField}
+        />
+        <SelectBox
+          onSelectChange={this.onSelectChange}
+          handleSubmit={this.handleSubmit}
+          pokemonType={pokemonType}
+          URL={URL}
         />
         <Scroll>
           <CardList pokemons={filteredPokemon} toggleModal={this.toggleModal} />

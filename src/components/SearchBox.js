@@ -1,12 +1,12 @@
 import React from "react";
 
-const SearchBox = ({ searchField, searchChange }) => {
+const SearchBox = ({ searchField, onSearchChange }) => {
   return (
     <div className="search-box">
       <input
         type="search"
         placeholder="Search by Pokemon Name"
-        onChange={searchChange}
+        onChange={onSearchChange}
         // Warning: React does not recognize the `searchField` prop on a DOM element. 
         // If you intentionally want it to appear in the DOM as a custom attribute, 
         // spell it as lowercase `searchfield` instead. 

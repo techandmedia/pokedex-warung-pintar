@@ -21,22 +21,24 @@ export default class Profile extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(this.props.URL + this.props.pokemonID).then(response => {
-      // console.log(response.data.name);
-      const pokemon = response.data;
-      this.setState({
-        pokemonName: pokemon.name,
-        pokemonType1: pokemon.types[0].type.name,
-        pokemonWeight: pokemon.weight,
-        hp: pokemon.stats[0].base_stat,
-        defense: pokemon.stats[1].base_stat,
-        attack: pokemon.stats[2].base_stat,
-        speed: pokemon.stats[3].base_stat,
-        specialDefense: pokemon.stats[4].base_stat,
-        specialAttack: pokemon.stats[5].base_stat
-        // pokemonType2: pokemon.types[1].type.name,
+    axios
+      .get(this.props.URL + "pokemon/" + this.props.pokemonID)
+      .then(response => {
+        // console.log(response.data.name);
+        const pokemon = response.data;
+        this.setState({
+          pokemonName: pokemon.name,
+          pokemonType1: pokemon.types[0].type.name,
+          pokemonWeight: pokemon.weight,
+          hp: pokemon.stats[0].base_stat,
+          defense: pokemon.stats[1].base_stat,
+          attack: pokemon.stats[2].base_stat,
+          speed: pokemon.stats[3].base_stat,
+          specialDefense: pokemon.stats[4].base_stat,
+          specialAttack: pokemon.stats[5].base_stat
+          // pokemonType2: pokemon.types[1].type.name,
+        });
       });
-    });
   }
 
   render() {
@@ -44,7 +46,13 @@ export default class Profile extends React.Component {
       pokemonName,
       pokemonType1,
       pokemonType2,
-      pokemonWeight, hp, defense, attack, speed, specialAttack, specialDefense
+      pokemonWeight,
+      hp,
+      defense,
+      attack,
+      speed,
+      specialAttack,
+      specialDefense
     } = this.state;
     const { pokemonID } = this.props;
     return (
@@ -61,13 +69,13 @@ export default class Profile extends React.Component {
           <div style={{ marginLeft: 50 }}>
             <h2>{pokemonName}</h2>
             <span>Type: {pokemonType1}</span> <br />
-            <span>Weight: {pokemonWeight}</span> <br/>
-            <span>HP: {hp}</span> <br/>
-            <span>Defense: {defense}</span> <br/>
-            <span>Attack: {attack}</span> <br/>
-            <span>Speed: {speed}</span> <br/>
-            <span>Special Attack: {specialAttack}</span> <br/>
-            <span>Special Defense: {specialDefense}</span> <br/>
+            <span>Weight: {pokemonWeight}</span> <br />
+            <span>HP: {hp}</span> <br />
+            <span>Defense: {defense}</span> <br />
+            <span>Attack: {attack}</span> <br />
+            <span>Speed: {speed}</span> <br />
+            <span>Special Attack: {specialAttack}</span> <br />
+            <span>Special Defense: {specialDefense}</span> <br />
           </div>
         </div>
 
