@@ -15,7 +15,8 @@ class App extends Component {
       searchField: "",
       prodURL: "https://app.subarnanto.com/api/v2/pokemon/",
       devURL: "http://localhost:5001/api/v2/pokemon/",
-      isModalOpen: false
+      isModalOpen: false,
+      pokemonID: null
     };
   }
 
@@ -24,14 +25,14 @@ class App extends Component {
       process.env.NODE_ENV === "production"
         ? this.state.prodURL
         : this.state.devURL;
-    axios.get(URL).then(response => {
-      console.log(response.data.results);
+    axios.get(this.state.prodURL).then(response => {
+      // console.log(response.data.results);
       this.setState({ pokemons: response.data.results });
     });
   }
 
   onSearchChange = event => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.setState({ searchField: event.target.value });
   };
 
@@ -41,18 +42,25 @@ class App extends Component {
     }));
   }
 
-  toggleModal = () => {
+  toggleModal = id => {
+    console.log(id);
     this.setState(prevState => ({
       ...prevState,
-      isModalOpen: !prevState.isModalOpen
+      isModalOpen: !prevState.isModalOpen,
+      pokemonID: id
     }));
   };
 
   render() {
-    const { pokemons, searchField, isModalOpen } = this.state;
+    const { pokemons, searchField, isModalOpen, pokemonID } = this.state;
     const filteredPokemon = pokemons.filter(pokemon => {
       return pokemon.name.toLowerCase().includes(searchField.toLowerCase());
     });
+    const URL =
+      process.env.NODE_ENV === "production"
+        ? this.state.prodURL
+        : this.state.devURL;
+
     return !pokemons.length ? (
       <h1>Loading</h1>
     ) : (
@@ -62,6 +70,8 @@ class App extends Component {
             <PokemonProfile
               // isModalOpen={isModalOpen}
               toggleModal={this.toggleModal}
+              pokemonID={pokemonID}
+              URL={this.state.prodURL}
             />
           </Modal>
         )}

@@ -1,18 +1,22 @@
 body {
-  background-color: wheat
+  background-color: wheat;
 }
 
-h1 {
-  font-family: 'Monoton', cursive;
+h1,
+h2 {
+  font-family: "Monoton", cursive;
   text-align: center;
   color: rebeccapurple;
   font-size: 3em;
+}
+
+h1 {
   margin: -10px 0;
 }
 
 h2 {
-  text-align: center;
-  text-transform: capitalize;
+  font-size: 1em;
+  color: red;
 }
 
 .card-list {
@@ -37,7 +41,7 @@ h2 {
   background-color: red;
 }
 
-input{
+input {
   text-align: center;
   padding: 5px;
 }
@@ -53,7 +57,7 @@ input{
 .search-box {
   /* width: 100px; */
   text-align: center;
-  margin: 10px 0; 
+  margin: 10px 0;
 }
 
 .search-box > input {

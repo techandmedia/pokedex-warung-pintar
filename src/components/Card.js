@@ -1,14 +1,14 @@
 import React from "react";
 
-const Card = ({ name, id, toggleModal }) => {
+const Card = (props) => {
   return (
-    <div className="card" onClick={toggleModal}>
+    <div className="card" onClick={() => props.toggleModal(props.id)}>
       <img
         alt="pokemon"
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`}
       />
 
-      <h2>{name}</h2>
+      <h2>{props.name}</h2>
     </div>
   );
 };

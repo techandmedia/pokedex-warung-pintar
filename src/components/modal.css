@@ -4,17 +4,18 @@
 }
 
 .profile-modal {
-  background-color: rgba(13, 128, 99, 0.9);
+  background-color: rgba(0, 0, 0, 0.9);
   position: fixed;
   /* text-align: center; */
-  height: 50%;
-  width: 50%;
+  height: 100%;
+  width: 100%;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
   align-content: center;
   justify-content: center;
+  color: white;
 }
 
 .button {
@@ -25,5 +26,9 @@
 }
 
 .profile-modal > p, .profile-modal > button {
+  text-align: center;
+}
+
+.profile-modal > button {
   text-align: center;
 }
